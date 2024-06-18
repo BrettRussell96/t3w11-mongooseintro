@@ -11,7 +11,11 @@ app.get("/", (request, response, next) => {
     });
 });
 
+const ContactRouter = require('./controllers/ContactRouter');
+app.use(ContactRouter);
+
 app.get("/databaseHealth", (request, response) => {
+
     let databaseState = mongoose.connection.readyState;
     let databaseName = mongoose.connection.name;
     let databaseModels = mongoose.connection.modelNames();
@@ -22,6 +26,12 @@ app.get("/databaseHealth", (request, response) => {
         dbName: databaseName,
         dbModels: databaseModels,
         dbHost: databaseHost
+    });
+});
+
+app.get("*", (request, response) => {
+    response.json({
+        message: "404 route activated"
     });
 });
 
