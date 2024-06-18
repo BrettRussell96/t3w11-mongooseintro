@@ -8,21 +8,34 @@ router.get("/", (request, respose) => {
     });
 });
 
-router.get("/all", async(request, response) => {
+router.get("/all", async (request, response) => {
     let results = await Contact.find().exec();
-
+    console.log("Found documents:");
+    console.log(results);
     response.json({
         message: "Found documents!",
         data: results
     });
 });
 
-router.get("/:id", (request, response) => {
-
+router.get("/:id", async (request, response) => {
+    let results = await Contact.findById(request.params.id).exec();
+    console.log("Found document:");
+    console.log(results);
+    response.json({
+        message: "Found document!",
+        data: results
+    });
 });
 
-router.post("/", (request, response) => {
-
+router.post("/", async (request, response) => {
+    let results = await Contact.create(request.body).exec();
+    console.log("Created documents:");
+    console.log(results);
+    response.json({
+        message: "Created documents!",
+        data: results
+    });
 });
 
 router.patch("/:id", (request, response) => {

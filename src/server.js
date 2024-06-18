@@ -1,7 +1,9 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const {default: mongoose} = require('mongoose');
 
 const app = express();
+
+app.use(express.json());
 
 
 app.get("/", (request, response, next) => {
@@ -11,8 +13,8 @@ app.get("/", (request, response, next) => {
     });
 });
 
-const ContactRouter = require('./controllers/ContactRouter');
-app.use(ContactRouter);
+const ContactRouter = require('./controllers/ContactRouter.js');
+app.use("/contact", ContactRouter);
 
 app.get("/databaseHealth", (request, response) => {
 
